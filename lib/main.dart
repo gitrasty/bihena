@@ -1,4 +1,6 @@
+import 'package:debitpad/login/firest_page_login.dart';
 import 'package:debitpad/login/login.dart';
+import 'package:debitpad/pages/bottom_bar.dart';
 import 'package:debitpad/shop/constants.dart';
 import 'package:debitpad/shop/screens/home/home_screen.dart';
 import 'package:debitpad/store/database/save_store.dart';
@@ -8,14 +10,89 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
  import 'package:url_launcher/url_launcher.dart';
 
 import 'component/component.dart';
 import 'form_qarz/home_page_qarz.dart';
 
-void main() {
-  runApp( MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences preferences=await SharedPreferences.getInstance();
+  var email=preferences.getString('email');
+
+  runApp(  switch_login()//MyApp()
+  );
 }
+
+
+class switch_login extends StatefulWidget {
+  const switch_login({Key? key}) : super(key: key);
+
+  @override
+  State<switch_login> createState() => _switch_loginState();
+}
+
+class _switch_loginState extends State<switch_login> {
+  String? email;
+  Future check_login() async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+      email=preferences.getString('email');
+
+    update(email);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  check_login();
+
+  }
+  var _login;
+  update(email){
+    setState(
+        (){
+          _login=email;
+        }
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+     // if(_login==null  ) {
+    //   return MaterialApp(home:  login(),);
+    // }
+    //   return MaterialApp(home: home_screen());
+
+     return MaterialApp(
+      // title: 'Debitpad',
+        debugShowCheckedModeBanner: false,
+        // theme: ThemeData(
+        //   primarySwatch: Colors.blue,
+        // ),
+
+        theme: ThemeData(
+          scaffoldBackgroundColor: bgColor,
+          primarySwatch: Colors.purple,
+          fontFamily: "dawayka",
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+          textTheme: const TextTheme(
+            bodyText2: TextStyle(color: Colors.black54),
+          ),
+        ),
+        home: //(_login==null ) ?firest_page_login() :
+             home_screen() //
+       // MyHomePage(title: 'Debtpad'),
+    );
+
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

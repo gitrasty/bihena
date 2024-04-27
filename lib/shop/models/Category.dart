@@ -26,5 +26,8 @@ List<Category> demo_categories = [
     icon: "https://i.guim.co.uk/img/media/731214a1195194813005d8071a13f68f11dbc564/0_62_3000_1799/master/3000.jpg?width=1200&quality=85&auto=format&fit=max&s=a38a6c9354d70b481841f070cdf7770c",
     title: "خواردنەوەکان",
   ),
-
+  Category(
+    icon: "https://i.guim.co.uk/img/media/731214a1195194813005d8071a13f68f11dbc564/0_62_3000_1799/master/3000.jpg?width=1200&quality=85&auto=format&fit=max&s=a38a6c9354d70b481841f070cdf7770c",
+    title: "قاوە",
+  ),
 ];

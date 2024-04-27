@@ -138,7 +138,11 @@ class _formy_qarzState extends State<formy_qarz> {
   }
 
   var _value = 'دینار';
-
+  static const _locale = 'en';
+  String _formatNumber(String s) =>
+      inital.NumberFormat.decimalPattern(_locale).format(int.parse(s));
+  String get _currency =>
+      inital.NumberFormat.compactSimpleCurrency(locale: _locale).currencySymbol;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -365,7 +369,8 @@ class _formy_qarzState extends State<formy_qarz> {
                         child: TextFormField(
                           controller: _qarzcontroller,
                           validator: (value) {
-                            if (value!.isEmpty || value == '.00') {
+                            if (value!.isEmpty || value == '00') {
+                              //if (value!.isEmpty || value == '.00') {
                               return 'بڕی قەرزەکە بە دروستی دیاری بکە';
                             }
                           },
@@ -375,25 +380,32 @@ class _formy_qarzState extends State<formy_qarz> {
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.digitsOnly
                           ],
-                          onChanged: (value) {
-                            String newValue =
-                                value.replaceAll(',', '').replaceAll('.', '');
-                            if (value.isEmpty || newValue == '00') {
-                              _qarzcontroller.clear();
-                              isFirst = true;
-                              return;
-                            }
-                            double value1 = double.parse(newValue);
-                            if (!isFirst) value1 = value1 * 100;
-                            value = inital.NumberFormat.currency(
-                                    customPattern: '###,###')
-                                .format(value1 / 100);
-                            _qarzcontroller.value = TextEditingValue(
-                              text:value=='.00'?'': value,
-                              selection:
-                                  TextSelection.collapsed(offset: value.length),
-                            );
-                          },
+    onChanged: (string) {
+    string = '${_formatNumber(string.replaceAll(',', ''))}';
+    _qarzcontroller.value = TextEditingValue(
+    text: string,
+    selection: TextSelection.collapsed(offset: string.length),
+    );
+    },
+                          // onChanged: (value) {
+                          //   String newValue =
+                          //       value.replaceAll(',', '').replaceAll('.', '');
+                          //   if (value.isEmpty || newValue == '00') {
+                          //     _qarzcontroller.clear();
+                          //     isFirst = true;
+                          //     return;
+                          //   }
+                          //   double value1 = double.parse(newValue);
+                          //   if (!isFirst) value1 = value1 * 100;
+                          //   value = inital.NumberFormat.currency(
+                          //           customPattern: '###,###')
+                          //       .format(value1 / 100);
+                          //   _qarzcontroller.value = TextEditingValue(
+                          //     text:value=='.00'?'': value,
+                          //     selection:
+                          //         TextSelection.collapsed(offset: value.length),
+                          //   );
+                          // },
                           decoration: InputDecoration(
                             hintStyle: TextStyle(color: template),
                             hintText: 'بڕی پارەی قەرز',
@@ -492,10 +504,12 @@ class _formy_qarzState extends State<formy_qarz> {
                         child: TextField(
                           controller: _tebynycontroller,
                           autocorrect: false,
-                          maxLines: null,
+                          maxLines: 10,
+
                           style: TextStyle(color: template),
                           decoration: InputDecoration(
                             hintMaxLines: 10,
+
                             hintStyle: TextStyle(color: template),
                             hintText: 'تێبینی',
                             filled: true,

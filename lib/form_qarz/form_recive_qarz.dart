@@ -109,6 +109,13 @@ class _form_recive_qarzState extends State<form_recive_qarz> {
     editecategory();
     getallcatagorys();
   }
+
+  static const _locale = 'en';
+  String _formatNumber(String s) =>
+      initl.NumberFormat.decimalPattern(_locale).format(int.parse(s));
+  String get _currency =>
+      initl.NumberFormat.compactSimpleCurrency(locale: _locale).currencySymbol;
+
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -189,25 +196,32 @@ class _form_recive_qarzState extends State<form_recive_qarz> {
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    onChanged: (value) {
-                      String newValue =
-                          value.replaceAll(',', '').replaceAll('.', '');
-                      if (value.isEmpty || newValue == '00') {
-                        _qarzcontroller.clear();
-                        isFirst = true;
-                        return;
-                      }
-                      double value1 = double.parse(newValue);
-                      if (!isFirst) value1 = value1 * 100;
-                      value =
-                          initl.NumberFormat.currency(customPattern: '###,###')
-                              .format(value1 / 100);
+                    onChanged: (string) {
+                      string = '${_formatNumber(string.replaceAll(',', ''))}';
                       _qarzcontroller.value = TextEditingValue(
-                        text:value=='.00'?'': value,
-                        selection:
-                            TextSelection.collapsed(offset: value.length),
+                        text: string,
+                        selection: TextSelection.collapsed(offset: string.length),
                       );
                     },
+                    // onChanged: (value) {
+                    //   String newValue =
+                    //       value.replaceAll(',', '').replaceAll('.', '');
+                    //   if (value.isEmpty || newValue == '00') {
+                    //     _qarzcontroller.clear();
+                    //     isFirst = true;
+                    //     return;
+                    //   }
+                    //   double value1 = double.parse(newValue);
+                    //   if (!isFirst) value1 = value1 * 100;
+                    //   value =
+                    //       initl.NumberFormat.currency(customPattern: '###,###')
+                    //           .format(value1 / 100);
+                    //   _qarzcontroller.value = TextEditingValue(
+                    //     text:value=='.00'?'': value,
+                    //     selection:
+                    //         TextSelection.collapsed(offset: value.length),
+                    //   );
+                    // },
                     decoration: InputDecoration(
                       hintStyle: TextStyle(color: template),
                       hintText: 'بڕی پارەی قەرز',

@@ -326,7 +326,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          backgroundColor: Color(0xff1e272e),
+          backgroundColor:template,
 
           //Colors.indigoAccent.shade200,
           title: Text(
@@ -382,16 +382,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 size: 30,
               )),
         ),
-        body: RefreshIndicator(
-          key: refreshkey,
-          onRefresh: () async {
-            refreshkey.currentState?.show(atTop: false);
-            await Future.delayed(Duration(seconds: 2));
-            setState(() {
-              getallcatagorys();
-            });
-          },
-          child: ListView(
+        body:
+
+        // RefreshIndicator(
+        //   key: refreshkey,
+        //   onRefresh: () async {
+        //     refreshkey.currentState?.show(atTop: false);
+        //     await Future.delayed(Duration(seconds: 2));
+        //     setState(() {
+        //       getallcatagorys();
+        //     });
+        //   },
+          //child:
+          ListView(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -698,7 +701,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     width: 100,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Color(0xff1e272e)
+                                        color: template,
                                       // gradient: LinearGradient(
                                       //   begin: Alignment.topRight,
                                       //   end: Alignment.bottomLeft,
@@ -808,7 +811,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-        ),
+        // ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -817,7 +820,7 @@ class _MyHomePageState extends State<MyHomePage> {
             )); // _showformdaialog();
           },
           tooltip: 'Increment',
-          backgroundColor: Color(0xff1e272e),
+          backgroundColor: template,
           child: const Icon(Icons.person_add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
         endDrawer: Drawer(

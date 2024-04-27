@@ -69,6 +69,13 @@ categoryModel.nrxy_froshtn=category['nrxy_froshtn'];
     // TODO: implement initState
     super.initState();
   getallcatagorys();}
+
+  static const _locale = 'en';
+  String _formatNumber(String s) =>
+      initl.NumberFormat.decimalPattern(_locale).format(int.parse(s));
+  String get _currency =>
+      initl.NumberFormat.compactSimpleCurrency(locale: _locale).currencySymbol;
+
   @override
   Widget build(BuildContext context) {
 
@@ -154,25 +161,32 @@ categoryModel.nrxy_froshtn=category['nrxy_froshtn'];
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
-                  onChanged: (value) {
-                    String newValue =
-                    value.replaceAll(',', '').replaceAll('.', '');
-                    if (value.isEmpty || newValue == '00') {
-                      _nrx.clear();
-                      isFirst = true;
-                      return;
-                    }
-                    double value1 = double.parse(newValue);
-                    if (!isFirst) value1 = value1 * 100;
-                    value =
-                        initl.NumberFormat.currency(customPattern: '###,###')
-                            .format(value1 / 100);
+                  onChanged: (string) {
+                    string = '${_formatNumber(string.replaceAll(',', ''))}';
                     _nrx.value = TextEditingValue(
-                      text:value=='.00'?'': value,
-                      selection:
-                      TextSelection.collapsed(offset: value.length),
+                      text: string,
+                      selection: TextSelection.collapsed(offset: string.length),
                     );
                   },
+                  // onChanged: (value) {
+                  //   String newValue =
+                  //   value.replaceAll(',', '').replaceAll('.', '');
+                  //   if (value.isEmpty || newValue == '00') {
+                  //     _nrx.clear();
+                  //     isFirst = true;
+                  //     return;
+                  //   }
+                  //   double value1 = double.parse(newValue);
+                  //   if (!isFirst) value1 = value1 * 100;
+                  //   value =
+                  //       initl.NumberFormat.currency(customPattern: '###,###')
+                  //           .format(value1 / 100);
+                  //   _nrx.value = TextEditingValue(
+                  //     text:value=='.00'?'': value,
+                  //     selection:
+                  //     TextSelection.collapsed(offset: value.length),
+                  //   );
+                  // },
                   decoration: InputDecoration(
                     hintStyle: TextStyle(color: template),
                     hintText: 'نرخ',
@@ -243,25 +257,32 @@ categoryModel.nrxy_froshtn=category['nrxy_froshtn'];
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
-                  onChanged: (value) {
-                    String newValue =
-                    value.replaceAll(',', '').replaceAll('.', '');
-                    if (value.isEmpty || newValue == '00') {
-                      _nrxy_froshtn.clear();
-                      isFirst_froshtn = true;
-                      return;
-                    }
-                    double value1 = double.parse(newValue);
-                    if (!isFirst_froshtn) value1 = value1 * 100;
-                    value =
-                        initl.NumberFormat.currency(customPattern: '###,###')
-                            .format(value1 / 100);
+                  onChanged: (string) {
+                    string = '${_formatNumber(string.replaceAll(',', ''))}';
                     _nrxy_froshtn.value = TextEditingValue(
-                      text:value=='.00'?'': value,
-                      selection:
-                      TextSelection.collapsed(offset: value.length),
+                      text: string,
+                      selection: TextSelection.collapsed(offset: string.length),
                     );
                   },
+                  // onChanged: (value) {
+                  //   String newValue =
+                  //   value.replaceAll(',', '').replaceAll('.', '');
+                  //   if (value.isEmpty || newValue == '00') {
+                  //     _nrxy_froshtn.clear();
+                  //     isFirst_froshtn = true;
+                  //     return;
+                  //   }
+                  //   double value1 = double.parse(newValue);
+                  //   if (!isFirst_froshtn) value1 = value1 * 100;
+                  //   value =
+                  //       initl.NumberFormat.currency(customPattern: '###,###')
+                  //           .format(value1 / 100);
+                  //   _nrxy_froshtn.value = TextEditingValue(
+                  //     text:value=='.00'?'': value,
+                  //     selection:
+                  //     TextSelection.collapsed(offset: value.length),
+                  //   );
+                  // },
                   decoration: InputDecoration(
                     hintStyle: TextStyle(color: template),
                     hintText: 'نرخی فرۆشتن',
